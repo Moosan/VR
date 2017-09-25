@@ -33,8 +33,8 @@ public class SteamVR_Camera : MonoBehaviour
 
 	static public float sceneResolutionScale
 	{
-		get { return UnityEngine.XR.XRSettings.eyeTextureResolutionScale; }
-		set { UnityEngine.XR.XRSettings.eyeTextureResolutionScale = value; }
+		get { return UnityEngine.VR.VRSettings.renderScale; }
+		set { UnityEngine.VR.VRSettings.renderScale = value; }
 	}
 
 	#region Enable / Disable
@@ -52,14 +52,14 @@ public class SteamVR_Camera : MonoBehaviour
 		{
 			if (head != null)
 			{
-                var trackedObject = head.GetComponent<SteamVR_TrackedObject>();
-                if (trackedObject != null)
+                var steamVRTrackedObj = head.GetComponent<SteamVR_TrackedObject>();
+                if (steamVRTrackedObj != null)
                 {
-                    trackedObject.enabled = false;
+                    steamVRTrackedObj.enabled = false;
                 }
                 else {
                     Debug.Log("SteamVR_TrackedObjectがありません");
-                    //Player.csを使ってるなら問題ないっぽい。
+                    //SteamのPlayer.csを使ってるなら大丈夫だと思う。
                 }
 			}
 
@@ -206,16 +206,12 @@ public class SteamVR_Camera : MonoBehaviour
 			while (transform.childCount > 0)
 				transform.GetChild(0).parent = head;
 
-#pragma warning disable CS0618 // 型またはメンバーが古い形式です
-            var guiLayer = GetComponent<GUILayer>();
-#pragma warning restore CS0618 // 型またはメンバーが古い形式です
-            if (guiLayer != null)
+			var guiLayer = GetComponent<GUILayer>();
+			if (guiLayer != null)
 			{
 				DestroyImmediate(guiLayer);
-#pragma warning disable CS0618 // 型またはメンバーが古い形式です
-                head.gameObject.AddComponent<GUILayer>();
-#pragma warning restore CS0618 // 型またはメンバーが古い形式です
-            }
+				head.gameObject.AddComponent<GUILayer>();
+			}
 
 			var audioListener = GetComponent<AudioListener>();
 			if (audioListener != null)
@@ -241,16 +237,12 @@ public class SteamVR_Camera : MonoBehaviour
 		while (head.childCount > 0)
 			head.GetChild(0).parent = transform;
 
-#pragma warning disable CS0618 // 型またはメンバーが古い形式です
-        var guiLayer = head.GetComponent<GUILayer>();
-#pragma warning restore CS0618 // 型またはメンバーが古い形式です
-        if (guiLayer != null)
+		var guiLayer = head.GetComponent<GUILayer>();
+		if (guiLayer != null)
 		{
 			DestroyImmediate(guiLayer);
-#pragma warning disable CS0618 // 型またはメンバーが古い形式です
-            gameObject.AddComponent<GUILayer>();
-#pragma warning restore CS0618 // 型またはメンバーが古い形式です
-        }
+			gameObject.AddComponent<GUILayer>();
+		}
 
 		if (ears != null)
 		{

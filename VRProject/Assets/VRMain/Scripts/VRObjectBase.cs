@@ -70,7 +70,8 @@ public abstract class VRObjectBase : MonoBehaviour {
 
         //VRオブジェクト生成
         VRobj = new GameObject(ObjectName);
-        transform.SetPositionAndRotation(originTransform.position,originTransform.rotation);
+        transform.position = originTransform.position;
+        transform.rotation = originTransform.rotation;
         originTransform.SetParent(VRobj.transform);
         originTransform.localPosition = new Vector3();
         originTransform.localRotation = new Quaternion();

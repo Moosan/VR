@@ -9,21 +9,17 @@ using Valve.VR;
 
 public class SteamVR_Stats : MonoBehaviour
 {
-#pragma warning disable CS0618 // 型またはメンバーが古い形式です
-    public GUIText text;
-#pragma warning restore CS0618 // 型またはメンバーが古い形式です
+	public GUIText text;
 
-    public Color fadeColor = Color.black;
+	public Color fadeColor = Color.black;
 	public float fadeDuration = 1.0f;
 
 	void Awake()
 	{
 		if (text == null)
 		{
-#pragma warning disable CS0618 // 型またはメンバーが古い形式です
-            text = GetComponent<GUIText>();
-#pragma warning restore CS0618 // 型またはメンバーが古い形式です
-            text.enabled = false;
+			text = GetComponent<GUIText>();
+			text.enabled = false;
 		}
 
 		if (fadeDuration > 0)

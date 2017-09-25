@@ -582,7 +582,7 @@ public class SteamVR_Settings : EditorWindow
 
 		if (numItems > 0)
 		{
-			if (/*GUILayout.Button("Accept All")||*/true)
+			if (GUILayout.Button("Accept All"))
 			{
 				// Only set those that have not been explicitly ignored.
 				if (!EditorPrefs.HasKey(ignore + buildTarget))
@@ -627,7 +627,7 @@ public class SteamVR_Settings : EditorWindow
 					PlayerSettings.singlePassStereoRendering = recommended_SinglePassStereoRendering;
 #endif
 
-				//EditorUtility.DisplayDialog("Accept All", "You made the right choice!", "Ok");
+				EditorUtility.DisplayDialog("Accept All", "You made the right choice!", "Ok");
 
 				Close();
 			}
