@@ -52,7 +52,15 @@ public class SteamVR_Camera : MonoBehaviour
 		{
 			if (head != null)
 			{
-				head.GetComponent<SteamVR_TrackedObject>().enabled = false;
+                var trackedObject = head.GetComponent<SteamVR_TrackedObject>();
+                if (trackedObject != null)
+                {
+                    trackedObject.enabled = false;
+                }
+                else {
+                    Debug.Log("SteamVR_TrackedObjectがありません");
+                    //Player.csを使ってるなら問題ないっぽい。
+                }
 			}
 
 			enabled = false;
@@ -198,12 +206,16 @@ public class SteamVR_Camera : MonoBehaviour
 			while (transform.childCount > 0)
 				transform.GetChild(0).parent = head;
 
-			var guiLayer = GetComponent<GUILayer>();
-			if (guiLayer != null)
+#pragma warning disable CS0618 // 型またはメンバーが古い形式です
+            var guiLayer = GetComponent<GUILayer>();
+#pragma warning restore CS0618 // 型またはメンバーが古い形式です
+            if (guiLayer != null)
 			{
 				DestroyImmediate(guiLayer);
-				head.gameObject.AddComponent<GUILayer>();
-			}
+#pragma warning disable CS0618 // 型またはメンバーが古い形式です
+                head.gameObject.AddComponent<GUILayer>();
+#pragma warning restore CS0618 // 型またはメンバーが古い形式です
+            }
 
 			var audioListener = GetComponent<AudioListener>();
 			if (audioListener != null)
@@ -229,12 +241,16 @@ public class SteamVR_Camera : MonoBehaviour
 		while (head.childCount > 0)
 			head.GetChild(0).parent = transform;
 
-		var guiLayer = head.GetComponent<GUILayer>();
-		if (guiLayer != null)
+#pragma warning disable CS0618 // 型またはメンバーが古い形式です
+        var guiLayer = head.GetComponent<GUILayer>();
+#pragma warning restore CS0618 // 型またはメンバーが古い形式です
+        if (guiLayer != null)
 		{
 			DestroyImmediate(guiLayer);
-			gameObject.AddComponent<GUILayer>();
-		}
+#pragma warning disable CS0618 // 型またはメンバーが古い形式です
+            gameObject.AddComponent<GUILayer>();
+#pragma warning restore CS0618 // 型またはメンバーが古い形式です
+        }
 
 		if (ears != null)
 		{
