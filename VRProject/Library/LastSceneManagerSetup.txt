@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/SteamVR/InteractionSystem/Samples/Scenes/Interactions_Example.unity
+- path: Assets/Main/Scenes/VRTestScene.unity
   isLoaded: 1
   isActive: 1
