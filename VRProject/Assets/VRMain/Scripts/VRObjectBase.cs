@@ -7,98 +7,118 @@ using Valve.VR.InteractionSystem;
 /// VR内で持つことの出来るオブジェクトの基底クラス
 /// </summary>
 public abstract class VRObjectBase : MonoBehaviour {
+
     //抽象クラス
 
+    [SerializeField]private VRObjectMode VRObjectMode;
 
-    //重さ
-    [SerializeField]private float Mass;
+    [SerializeField]private bool UseGravity;
 
-    //VRオブジェクト
-    private GameObject VRobj { get; set; }
+    //掴んだら起こるイベント
+    [SerializeField]
+    private UnityEvent onPickUp;
 
-    //transform
-    public new Transform transform {
-        get {
-            if (VRobj)
-            {
-                return VRobj.transform;
-            }
-            else {
-                return null;
-            }
-        }
-    }
+    //話したら起こるイベント
+    [SerializeField]
+    private UnityEvent onDetachFromHand;
 
-    //gameObject
-    public new GameObject gameObject {
-        get {
-            return VRobj;
-        }
-    }
+    //触れたら起こるイベント
+    [SerializeField]
+    private UnityEvent onHandHoverBegin;
 
-    public UnityEvent onPickUp;
-    public UnityEvent onDetachFromHand;
+    //触れるのをやめたら起こるイベント
+    [SerializeField]
+    private UnityEvent onHandHoverEnd;
 
-    public UnityEvent onHandHoverBegin;
-    public UnityEvent onHandHoverEnd;
-    public UnityEvent onAttachedToHand;
-    public UnityEvent onDetachedFromHand;
+    //アタッチしたら呼ばれるイベント
+    [SerializeField]
+    private UnityEvent onAttachedToHand;
 
-    private void Awake()
+    //ディタッチしたら呼ばれるイベント
+    [SerializeField]
+    private UnityEvent onDetachedFromHand;
+
+    private Rigidbody rigidBody { get; set; }
+
+    private Hand.AttachmentFlags attachmentFlags = Hand.defaultAttachmentFlags & (~Hand.AttachmentFlags.SnapOnAttach) & (~Hand.AttachmentFlags.DetachOthers);
+    
+    public virtual void Awake()
     {
-        if (Mass == 0) {
-            Mass = 1;
-        }
-
         var collider = GetComponent<Collider>();
         if (collider==null) {
-            Debug.LogError("VRオブジェクトにColliderを付けてください。");
+            Debug.LogError("オブジェクトにColliderを付けてください。");
             return;
         }
 
-        var rigidbody = GetComponent<Rigidbody>();
-        if (rigidbody!=null) {
-            Debug.LogWarning("VRオブジェクトのRigidBodyの初期の設定は再生時には受け継がれません。\nRemoveを推奨します。");
-            //受け継がれるようにしようと思ったけど方法を思いつかなかった。
-            DestroyImmediate(rigidbody);
+        rigidBody = GetComponent<Rigidbody>();
+
+        if (VRObjectMode != VRObjectMode.NeverMove)
+        {
+            if (rigidBody == null)
+            {
+                rigidBody = gameObject.AddComponent<Rigidbody>();
+            }
+            rigidBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+            rigidBody.useGravity = UseGravity;
+
+            //VelocityEstimat追加
+            gameObject.AddComponent<VelocityEstimator>();
+
+            //Interactable追加
+            gameObject.AddComponent<Interactable>();
+
+            if (VRObjectMode == VRObjectMode.Grabable)
+            {
+                //Throwable追加
+                Throwable thro = gameObject.AddComponent<Throwable>();
+                thro.attachEaseIn = true;
+                thro.onPickUp = onPickUp;
+                thro.onDetachFromHand = onDetachFromHand;
+
+                //Attachイベント消去
+                onAttachedToHand = new UnityEvent();
+                onDetachedFromHand = new UnityEvent();
+            }
+
+            //InteractableHoverEvents追加
+            InteractableHoverEvents ihe = gameObject.AddComponent<InteractableHoverEvents>();
+            ihe.onHandHoverBegin = onHandHoverBegin;
+            ihe.onHandHoverEnd = onHandHoverEnd;
+            if (VRObjectMode != VRObjectMode.Attachable)
+            {
+                //Attachイベント消去
+                onAttachedToHand = new UnityEvent();
+                onDetachedFromHand = new UnityEvent();
+            }
+            ihe.onAttachedToHand = onAttachedToHand;
+            ihe.onDetachedFromHand = onDetachedFromHand;
         }
-
-        Transform originTransform = GetComponent<Transform>();
-
-        //物体の名前
-        var ObjectName = originTransform.name;
-
-        //VRオブジェクト生成
-        VRobj = new GameObject(ObjectName);
-        transform.position = originTransform.position;
-        transform.rotation = originTransform.rotation;
-        originTransform.SetParent(VRobj.transform);
-        originTransform.localPosition = new Vector3();
-        originTransform.localRotation = new Quaternion();
-
-        //RigidBody追加
-        Rigidbody rigid = gameObject.AddComponent<Rigidbody>();
-        rigid.mass = Mass;
-
-        //VelocityEstimat追加
-        gameObject.AddComponent<VelocityEstimator>();
-        
-        //Interactable追加
-        gameObject.AddComponent<Interactable>();
-
-
-        //Throwable追加
-        Throwable thro = gameObject.AddComponent<Throwable>();
-        thro.onPickUp = onPickUp;
-        thro.onDetachFromHand = onDetachFromHand;
-
-        //InteractableHoverEvents
-        InteractableHoverEvents ihe = gameObject.AddComponent<InteractableHoverEvents>();
-        ihe.onHandHoverBegin = onHandHoverBegin;
-        ihe.onHandHoverEnd = onHandHoverEnd;
-        ihe.onAttachedToHand = onAttachedToHand;
-        ihe.onDetachedFromHand = onDetachedFromHand;
+        else {
+            DestroyImmediate(rigidBody);
+        }
     }
 
-
+    public virtual void HandHoverUpdate(Hand hand)
+    {
+        if (VRObjectMode==VRObjectMode.Attachable)
+        {
+            if (hand.GetStandardInteractionButtonDown() || ((hand.controller != null) && hand.controller.GetPressDown(Valve.VR.EVRButtonId.k_EButton_Grip)))
+            {
+                if (hand.currentAttachedObject != gameObject)
+                {
+                    hand.HoverLock(GetComponent<Interactable>());
+                    hand.AttachObject(gameObject, attachmentFlags);
+                    rigidBody.useGravity = false;
+                    rigidBody.isKinematic = true;
+                }
+                else
+                {
+                    hand.DetachObject(gameObject);
+                    hand.HoverUnlock(GetComponent<Interactable>());
+                    rigidBody.useGravity = UseGravity;
+                    rigidBody.isKinematic = false;
+                }
+            }
+        }
+    }
 }

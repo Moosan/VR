@@ -22,7 +22,7 @@ GameObject:
   - 65: {fileID: 65000012436479600}
   - 136: {fileID: 136000014095541938}
   - 136: {fileID: 136000013871284430}
-  - 114: {fileID: 114000010676436282}
+  - 114: {fileID: 114000013192956078}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -122,7 +122,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.04, y: 1.45, z: 0.12}
   m_Center: {x: 0, y: -0.7, z: 0}
---- !u!114 &114000010676436282
+--- !u!114 &114000013192956078
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -130,10 +130,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000012575016830}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 795c885cef1b4a94580805b845ebf0d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 9f8aa9c322327ba4391db929f1fa98a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Mass: 0
+  VRObjectMode: 0
+  UseGravity: 0
   onPickUp:
     m_PersistentCalls:
       m_Calls: []
