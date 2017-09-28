@@ -14,13 +14,16 @@ public abstract class VRObjectBase : MonoBehaviour {
 
     [SerializeField]private bool UseGravity;
 
+    [SerializeField]
+    private float Mass;
+
     //掴んだら起こるイベント
     [SerializeField]
     private UnityEvent onPickUp;
 
     //話したら起こるイベント
     [SerializeField]
-    private UnityEvent onDetachFromHand;
+    private UnityEvent onThrowAway;
 
     //触れたら起こるイベント
     [SerializeField]
@@ -38,7 +41,7 @@ public abstract class VRObjectBase : MonoBehaviour {
     [SerializeField]
     private UnityEvent onDetachedFromHand;
 
-    private Rigidbody rigidBody { get; set; }
+    public Rigidbody rigidBody { get; set; }
 
     private Hand.AttachmentFlags attachmentFlags = Hand.defaultAttachmentFlags & (~Hand.AttachmentFlags.SnapOnAttach) & (~Hand.AttachmentFlags.DetachOthers);
     
@@ -50,16 +53,22 @@ public abstract class VRObjectBase : MonoBehaviour {
             return;
         }
 
+
         rigidBody = GetComponent<Rigidbody>();
 
         if (VRObjectMode != VRObjectMode.NeverMove)
         {
+            transform.tag = "VRItem";
+
             if (rigidBody == null)
             {
                 rigidBody = gameObject.AddComponent<Rigidbody>();
             }
             rigidBody.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
             rigidBody.useGravity = UseGravity;
+            if (Mass != 0) {
+                rigidBody.mass = Mass;
+            }
 
             //VelocityEstimat追加
             gameObject.AddComponent<VelocityEstimator>();
@@ -71,9 +80,8 @@ public abstract class VRObjectBase : MonoBehaviour {
             {
                 //Throwable追加
                 Throwable thro = gameObject.AddComponent<Throwable>();
-                thro.attachEaseIn = true;
                 thro.onPickUp = onPickUp;
-                thro.onDetachFromHand = onDetachFromHand;
+                thro.onDetachFromHand = onThrowAway;
 
                 //Attachイベント消去
                 onAttachedToHand = new UnityEvent();

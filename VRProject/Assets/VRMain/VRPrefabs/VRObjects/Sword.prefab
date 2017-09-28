@@ -53,10 +53,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013057619094}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalPosition: {x: -0, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_Children: []
   m_Father: {fileID: 4000014257371022}
   m_RootOrder: 0
@@ -66,7 +66,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012575016830}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -116,12 +116,12 @@ BoxCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012575016830}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ee80229fceb851041b28d04df9b6193c, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.04, y: 1.45, z: 0.12}
-  m_Center: {x: 0, y: -0.7, z: 0}
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!114 &114000013192956078
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -134,15 +134,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VRObjectMode: 0
-  UseGravity: 0
+  UseGravity: 1
   onPickUp:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114000013192956078}
+        m_MethodName: KenMoti
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  onDetachFromHand:
+  onThrowAway:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114000013192956078}
+        m_MethodName: KenHanasi
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   onHandHoverBegin:
@@ -171,23 +193,23 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012575016830}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ee80229fceb851041b28d04df9b6193c, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.02
   m_Height: 0.62
   m_Direction: 2
-  m_Center: {x: 0, y: 0.04, z: 0}
+  m_Center: {x: 0, y: 0.155, z: 0}
 --- !u!136 &136000014095541938
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012575016830}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ee80229fceb851041b28d04df9b6193c, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.03
   m_Height: 0.65
   m_Direction: 1
-  m_Center: {x: 0, y: 0.36, z: 0}
+  m_Center: {x: 0, y: -0.16, z: 0}
