@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/VRMain/Scenes/SteamVRTest.unity
+- path: Assets/Gimmick/Scenes/ryous-easy.unity
   isLoaded: 1
   isActive: 1
