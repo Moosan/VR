@@ -410,7 +410,7 @@ Prefab:
     - target: {fileID: 114000012428763812, guid: 00592bbaa1be33f4096deb55d48fd10c,
         type: 2}
       propertyPath: UseGravity
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 135000014072939748, guid: 00592bbaa1be33f4096deb55d48fd10c,
         type: 2}
@@ -547,7 +547,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010303521918, guid: cc25b2281f4762649b8e12acbef17b2e, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0.29999995
+      value: -0.065
       objectReference: {fileID: 0}
     - target: {fileID: 4000010303521918, guid: cc25b2281f4762649b8e12acbef17b2e, type: 2}
       propertyPath: m_LocalRotation.x
@@ -568,6 +568,11 @@ Prefab:
     - target: {fileID: 4000010303521918, guid: cc25b2281f4762649b8e12acbef17b2e, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013462452446, guid: cc25b2281f4762649b8e12acbef17b2e,
+        type: 2}
+      propertyPath: UseGravity
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cc25b2281f4762649b8e12acbef17b2e, type: 2}
@@ -631,7 +636,7 @@ Prefab:
     - target: {fileID: 114000012428763812, guid: 00592bbaa1be33f4096deb55d48fd10c,
         type: 2}
       propertyPath: UseGravity
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 135000014072939748, guid: 00592bbaa1be33f4096deb55d48fd10c,
         type: 2}
@@ -1028,6 +1033,11 @@ Prefab:
       propertyPath: KireruHayasa
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 114000013192956078, guid: fb0f08964cd111843b9763a799bed406,
+        type: 2}
+      propertyPath: UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fb0f08964cd111843b9763a799bed406, type: 2}
   m_IsPrefabParent: 0
@@ -1323,7 +1333,7 @@ Prefab:
     - target: {fileID: 114000012428763812, guid: 00592bbaa1be33f4096deb55d48fd10c,
         type: 2}
       propertyPath: UseGravity
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 135000014072939748, guid: 00592bbaa1be33f4096deb55d48fd10c,
         type: 2}

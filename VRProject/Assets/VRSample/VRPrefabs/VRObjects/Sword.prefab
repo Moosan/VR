@@ -188,8 +188,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
-  KireruHayasa: 15
-  KireruTaiseki: 0.28
+  KireruHayasa: 1.3
+  KireruTaiseki: 0.001
 --- !u!136 &136000013871284430
 CapsuleCollider:
   m_ObjectHideFlags: 1
