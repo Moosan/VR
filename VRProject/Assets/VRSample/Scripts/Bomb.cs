@@ -10,7 +10,19 @@ public class Bomb : VRObjectBase{
     public void Update() {
         if (Picked)
         {
-            if (transform.parent.gameObject.GetComponent<SteamVR_TrackedObject>()||Input.GetKey(KeyCode.A))
+            if (Device == null)
+            {
+                if (Input.GetKey(KeyCode.Q))
+                {
+                    if (LetsBom)
+                    {
+                        return;
+                    }
+                    Invoke("Dokan", BomTime);
+                    LetsBom = true;
+                }
+            }
+            else if (Device.GetPressDown(SteamVR_Controller.ButtonMask.Touchpad))
             {
                 if (LetsBom) {
                     return;
@@ -41,6 +53,7 @@ public class Bomb : VRObjectBase{
         {
             obj=(GameObject)Instantiate(Effect,transform.position,new Quaternion());
         }
+        obj.GetComponent<Explosion>().Device = Device;
         Destroy(obj,2.1f);
         Destroy(gameObject.GetComponent<MeshRenderer>(),1.0f);
         DestroyImmediate(GetComponent<Throwable>());

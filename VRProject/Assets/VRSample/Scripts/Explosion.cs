@@ -7,7 +7,7 @@ public class Explosion : MonoBehaviour {
     private new Rigidbody rigidbody { get; set; }
     private bool Bombing;
     private float time;
-    
+    public SteamVR_Controller.Device Device;
     void OnTriggerStay(Collider col)
     {
         if (Bombing)
@@ -35,5 +35,7 @@ public class Explosion : MonoBehaviour {
         if (time >= 1&&!Bombing) {
             Bombing = true;
         }
+        if(Bombing)
+            Device.TriggerHapticPulse((ushort)(500+(2-time)*2000));
     }
 }
