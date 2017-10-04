@@ -43,7 +43,8 @@ public abstract class VRObjectBase : MonoBehaviour {
 
     public Rigidbody rigidBody { get; set; }
 
-    public Hand Hand { get {
+    public Hand Hand {
+        get {
             var hand = transform.parent.gameObject.GetComponent<Hand>();
             if (hand == null)
             {
@@ -55,7 +56,8 @@ public abstract class VRObjectBase : MonoBehaviour {
             }
         } }
 
-    public SteamVR_Controller.Device Device { get {
+    public SteamVR_Controller.Device Device {
+        get {
             if (Hand == null)
             {
                 return null;

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using Valve.VR.InteractionSystem;
 public class Explosion : MonoBehaviour {
     public float coefficient;   // 空気抵抗係数
     public float speed;         // 爆風の速さ
@@ -35,7 +35,13 @@ public class Explosion : MonoBehaviour {
         if (time >= 1&&!Bombing) {
             Bombing = true;
         }
-        if(Bombing)
-            Device.TriggerHapticPulse((ushort)(500+(2-time)*2000));
+        if (Bombing)
+        {
+            SteamVR_Controller.Device device1, device2;
+            device1 = SteamVR_Controller.Input(4);
+            device2 = SteamVR_Controller.Input(5);
+            device1.TriggerHapticPulse((ushort)(500 + (2 - time) * 2000));
+            device2.TriggerHapticPulse((ushort)(500 + (2 - time) * 2000));
+        }
     }
 }

@@ -53,7 +53,6 @@ public class Bomb : VRObjectBase{
         {
             obj=(GameObject)Instantiate(Effect,transform.position,new Quaternion());
         }
-        obj.GetComponent<Explosion>().Device = Device;
         Destroy(obj,2.1f);
         Destroy(gameObject.GetComponent<MeshRenderer>(),1.0f);
         DestroyImmediate(GetComponent<Throwable>());

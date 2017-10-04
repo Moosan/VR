@@ -72,6 +72,8 @@ public class ControllerDebugSample : VRObjectBase {
                 Debug.Log("タッチパッドに触っている");
                 Vector2 position = device.GetAxis();
                 Debug.Log("x: " + position.x + " y: " + position.y + "らへんを触っている");
+
+                device.TriggerHapticPulse(2000);
             }
         }
     }
